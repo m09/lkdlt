@@ -1237,3 +1237,92 @@
 録 enregistrer
 剥 écorcer
 尋 questionner
+急 urgence
+侵 intrusion
+浸 immersion
+寝 coucher
+婦 femme mariée
+掃 balayer
+当 frapper
+争 querelle
+浄 nettoyer
+事 fait
+唐 Tang
+糖 sucre
+康 tranquille
+逮 appréhender
+隷 esclave
+伊 Italie
+君 jeune homme
+群 troupeau
+耐 à l'épreuve de
+需 demande
+儒 confucéen
+端 bord
+両 les deux
+満 remplir
+画 trait de pinceau
+歯 dent
+曲 courber
+曹 exécutant
+遭 mauvaise rencontre
+漕 ramer
+槽 cuve
+斗 grande casserole
+料 recette
+科 faculté
+図 carte
+用 se servir de
+庸 banal
+備 équiper
+昔 autrefois
+錯 embrouillé
+借 emprunter
+惜 dommage
+措 mettre en place
+散 disperser
+旺 vigoureux
+冥 Pluton
+廿 vingt
+庶 peuple
+遮 intercepter
+席 siège
+度 degré
+渡 transit
+奔 précipitation
+噴 éruption
+墳 tombeau
+憤 indignation
+焼 griller
+暁 aube
+半 moitié
+伴 accompagner
+畔 levée de terre
+判 jugement
+券 coupon
+巻 enrouler
+拳 poing
+圏 sphère d'influence
+勝 victoire
+藤 glycine
+謄 reprographie
+片 simple face
+版 édition
+之 de
+乏 insuffisant
+芝 pelouse
+苛 tyranniser
+不 négation
+否 non
+杯 coupe à saké
+矢 flèche
+矯 redresser
+族 tribu
+知 savoir
+智 sagesse
+挨 pousser
+拶 presser
+矛 lance
+柔 souple
+務 œuvre
+霧 brouillard
