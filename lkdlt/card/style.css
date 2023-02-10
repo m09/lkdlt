@@ -1,0 +1,50 @@
+/* Main card setup */
+.card {
+    font-family:  'Linux Libertine O', 'arial', 'serif';
+    text-align: center;
+    color: #18191A;
+    background-color: #E4E6EB;
+}
+.card.nightMode {
+    color: #E4E6EB;
+    background-color: #18191A;
+}
+
+/* Additional fonts */
+
+@font-face {
+    font-family: textbook;
+    src: url('_HGSKyokashotai.ttf');
+}
+.japonais { font-family: "textbook"; }
+
+/* Additional color tweaks */
+
+.nightMode a  { color: lightblue; }
+.deck-info { color: #666666; }
+.nightMode .deck-info { color: #AAAAAA; }
+
+/* SVG customizations */
+
+svg.acjk {
+    width:4rem;
+    height:4rem;
+}
+svg.acjk path[clip-path] { stroke: #18191A !important; }
+svg.acjk path[id] { fill: #888888 !important; }
+.nightMode svg.acjk path[clip-path] { stroke: #E4E6EB !important; }
+.nightMode svg.acjk path[id] { fill: #888888 !important; }
+
+/* Hide deck info on mobile */
+
+.mobile .deck-info { display: none; }
+
+
+/* Additional font size tweaks */
+
+html { font-size: 20px; }
+.deck-info { font-size: 1rem; }
+.mot { font-size: 2rem; }
+.kanji { font-size: 4rem; }
+.histoire { font-size: 1rem; }
+.identifiant { font-size: 1rem; }

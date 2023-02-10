@@ -1,0 +1,11 @@
+[flake8]
+max-line-length = 88
+exclude =
+    __pycache__,
+    .git,
+    .mypy_cache,
+    .pytest_cache,
+    .venv
+per-file-ignores =
+    tests/*: D
+max-complexity = 9
