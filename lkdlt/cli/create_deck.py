@@ -4,7 +4,8 @@ from pathlib import Path
 from genanki import Deck, Model, Note, Package, guid_for
 
 from .. import card
-from ..animcjk import get_svg
+from ..kanji_infos import KanjiInfos
+from ..loading import load_kanjis_and_keywords, load_replacements
 from . import app
 
 
@@ -41,34 +42,33 @@ def create_deck() -> None:
 
     lkdlt_path = Path.home() / "work" / "m09" / "nihongo" / "kanjis"
 
-    replacements = {}
+    replacements = load_replacements(lkdlt_path / "edits.txt")
+    kanjis_and_keywords = load_kanjis_and_keywords(lkdlt_path / "main-list.txt")
 
-    with (lkdlt_path / "edits.txt").open(encoding="utf8") as fh:
-        for line in fh:
-            line = line.strip()
-            if line:
-                _, kanji, replacement = line.split(" ", maxsplit=2)
-                replacements[kanji] = replacement
+    kanji_infos = KanjiInfos.from_data(kanjis_and_keywords, replacements)
 
-    with (lkdlt_path / "main-list.txt").open(encoding="utf8") as fh:
-        unknown = []
-        for i, line in enumerate(fh, start=1):
-            if line.strip():
-                kanji, rest = line.split(maxsplit=1)
-                word = replacements.get(kanji, rest.strip())
-                svg = get_svg(kanji)
-                if svg is None:
-                    unknown.append(kanji)
-                    svg = ""
-                    svg_found = ""
-                else:
-                    svg_found = "Oui"
-                deck.add_note(
-                    MyNote(
-                        model=model,
-                        fields=[word, kanji, svg_found, svg, "", str(i)],
-                    )
-                )
+    unknown = []
+    for kanji_info in kanji_infos:
+        if kanji_info.svg is None:
+            unknown.append(kanji_info.kanji)
+            svg = ""
+            svg_found = ""
+        else:
+            svg = kanji_info.svg
+            svg_found = "Oui"
+        deck.add_note(
+            MyNote(
+                model=model,
+                fields=[
+                    kanji_info.keyword,
+                    kanji_info.kanji,
+                    svg_found,
+                    svg,
+                    kanji_info.story,
+                    str(kanji_info.identifier),
+                ],
+            )
+        )
 
     Package(deck).write_to_file(str(Path.home() / "output.apkg"))
     print(unknown)
