@@ -1,7 +1,10 @@
-import importlib.resources as importlib_resources
+from importlib.resources import read_text
+from itertools import islice
 from pathlib import Path
+from typing import Optional
 
 from genanki import Deck, Model, Note, Package, guid_for
+from typer import Argument
 
 from .. import card
 from ..kanji_infos import KanjiInfos
@@ -15,16 +18,16 @@ class MyNote(Note):
         return guid_for(self.fields[-1])
 
 
-css = importlib_resources.read_text(card, "style.css")
-front = importlib_resources.read_text(card, "front.html")
-back = importlib_resources.read_text(card, "back.html")
+css = read_text(card, "style.css")
+front = read_text(card, "front.html")
+back = read_text(card, "back.html")
 
 
 model = Model(
     1294535707,
     "Kanji",
     fields=[
-        {"name": "Mot"},
+        {"name": "Mot-clef"},
         {"name": "Kanji"},
         {"name": "SVG-Présent"},
         {"name": "SVG"},
@@ -37,7 +40,7 @@ model = Model(
 
 
 @app.command()
-def create_deck() -> None:
+def create_deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     deck = Deck(1253852384, "Japonais::Les Kanjis dans la tête")
 
     lkdlt_path = Path.home() / "work" / "m09" / "nihongo" / "kanjis"
@@ -48,7 +51,7 @@ def create_deck() -> None:
     kanji_infos = KanjiInfos.from_data(kanjis_and_keywords, replacements)
 
     unknown = []
-    for kanji_info in kanji_infos:
+    for kanji_info in islice(kanji_infos, limit):
         if kanji_info.svg is None:
             unknown.append(kanji_info.kanji)
             svg = ""
