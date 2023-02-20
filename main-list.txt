@@ -1498,3 +1498,94 @@
 畿 province
 機 métier à tisser
 玄 mystérieux
+畜 bétail
+蓄 accumuler
+弦 corde d'arc
+擁 étreindre
+滋 nourissant
+慈 affection
+磁 aimant
+系 lignée
+係 chargé de
+孫 petits-enfants
+遜 effacement
+懸 suspendre
+却 rapporter
+脚 patins
+卸 vente en gros
+御 honorable
+服 habillement
+命 destinée
+令 ordre
+零 zéro
+齢 âge
+冷 froid
+領 domaine
+鈴 clochette
+勇 courage
+湧 bouillonner
+通 circulation
+踊 danser
+疑 douter
+擬 imitation
+凝 congeler
+範 modèle
+犯 perpétrer
+氾 déferlement
+厄 malchance
+危 dangereux
+宛 adresse postale
+腕 bras
+苑 jardins impériaux
+怨 rancune
+卵 œuf
+柳 saule
+卯 signe du lièvre
+留 retenu
+瑠 rubis
+貿 négoce
+印 impression
+興 intérêt
+酉 signe de l'oiseau
+酒 vin
+酌 servir à boire
+酎 distillat
+酵 fermentation
+酷 cruel
+酬 remboursement
+酪 produits laitiers
+酢 vinaigre
+酔 ivre
+配 distribuer
+酸 acide
+猶 en outre
+尊 révérer
+遵 se conformer
+豆 pois
+頭 tête
+短 court
+豊 abondance
+鼓 tambour
+喜 se réjouir
+樹 grume
+皿 assiette
+血 sang
+盆 bassin
+盟 alliance
+盗 dérober
+温 chaud
+監 surveiller
+藍 indigo
+濫 débordement
+鑑 échantillon
+猛 féroce
+盛 prospérité
+塩 sel
+蓋 couvercle
+銀 argent
+恨 ressentiment
+根 racine
+即 instantané
+爵 baron
+節 nœud
+退 retraite
