@@ -18,11 +18,6 @@ class MyNote(Note):
         return guid_for(self.fields[-1])
 
 
-css = read_text(card, "style.css")
-front = read_text(card, "front.html")
-back = read_text(card, "back.html")
-
-
 model = Model(
     1294535707,
     "Kanji",
@@ -34,8 +29,19 @@ model = Model(
         {"name": "Histoire"},
         {"name": "Identifiant"},
     ],
-    templates=[{"name": "Card 1", "qfmt": front, "afmt": back}],
-    css=css,
+    templates=[
+        dict(
+            name="Génération",
+            qfmt=read_text(card, "generation-front.html"),
+            afmt=read_text(card, "generation-back.html"),
+        ),
+        dict(
+            name="Reconnaissance",
+            qfmt=read_text(card, "recognition-front.html"),
+            afmt=read_text(card, "recognition-back.html"),
+        ),
+    ],
+    css=read_text(card, "style.css"),
 )
 
 
