@@ -46,7 +46,7 @@ model = Model(
 
 
 @app.command()
-def create_deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
+def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     deck = Deck(1253852384, "Japonais::Les Kanjis dans la tête")
 
     lkdlt_path = Path.home() / "work" / "m09" / "nihongo" / "kanjis"

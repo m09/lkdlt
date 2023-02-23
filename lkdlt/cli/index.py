@@ -6,7 +6,7 @@ from . import app
 
 
 @app.command()
-def create_index() -> None:
+def index() -> None:
     lkdlt_path = Path.home() / "work" / "m09" / "nihongo" / "kanjis"
 
     replacements = load_replacements(lkdlt_path / "edits.txt")
