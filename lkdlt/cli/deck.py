@@ -35,11 +35,6 @@ model = Model(
             qfmt=read_text(card, "generation-front.html"),
             afmt=read_text(card, "generation-back.html"),
         ),
-        dict(
-            name="Reconnaissance",
-            qfmt=read_text(card, "recognition-front.html"),
-            afmt=read_text(card, "recognition-back.html"),
-        ),
     ],
     css=read_text(card, "style.css"),
 )
