@@ -2009,3 +2009,215 @@
 蒲 typha
 哺 allaiter
 舗 échoppe
+補 complément
+邑 bourg
+邸 résidence
+郭 périphérie
+郡 comté
+郊 banlieue
+部 partie
+都 métropole
+郵 courrier
+邦 pays natal
+那 patron
+郷 village natal
+響 résonner
+郎 fils
+廊 couloir
+盾 bouclier
+循 suiveur
+派 faction
+脈 vaisseau sanguin
+衆 foule
+逓 relais
+段 grade
+鍛 forger
+后 impératrice
+垢 crasse
+幻 chimère
+司 directeur
+伺 je vous rends visite
+詞 partie du discours
+飼 domestiquer
+嗣 héritier
+舟 bateau
+舶 paquebot
+航 naviguer
+般 global
+盤 plateau
+搬 transporteur
+船 navire
+舷 bord de navire
+艦 navire de guerre
+艇 barque
+丹 rouge vif
+瓜 melon
+弧 arc de cercle
+孤 orphelin
+繭 cocon
+益 bénéfice
+暇 temps libre
+敷 étaler
+来 venir
+気 humeur
+汽 vapeur
+飛 voler
+沈 noyer
+枕 oreiller
+妻 épouse
+凄 terrible
+衰 déclin
+衷 au plus profond
+面 face
+麺 nouille
+革 cuir
+靴 chaussure
+覇 hégémonie
+声 voix
+眉 sourcil
+呉 tu me donnes
+娯 divertir
+誤 erreur
+丞 secours
+承 accepter
+蒸 étuver
+函 coffre
+極 extrêmes
+牙 croc
+芽 bourgeon
+邪 sournois
+雅 raffinement
+釈 justification
+番 tour de rôle
+審 audition
+翻 voltiger
+藩 clan
+毛 pilosité
+耗 décroître
+尾 queue
+宅 domicile
+託 confier
+為 faire
+偽 contrefaire
+長 long
+張 allonger
+帳 cahier
+脹 dilater
+髪 cheveu
+展 développer
+畏 cordial
+喪 deuil
+巣 nid
+単 simple
+戦 guerre
+禅 Zen
+弾 boulet
+桜 cerisier
+獣 bête
+脳 cerveau
+悩 soucieux
+厳 strict
+鎖 chaîne
+挙 hausser
+誉 réputation
+猟 giboyer
+鳥 oiseau
+鳴 gazouiller
+鶴 grue
+烏 corbeau
+蔦 lierre
+鳩 pigeon
+鶏 poule
+島 île
+暖 chaleur humaine
+媛 belle femme
+援 entraide
+緩 desserrer
+属 faire partie de
+嘱 charger de
+偶 par hasard
+遇 entrevue
+愚 stupide
+隅 coin
+逆 chamois
+朔 premier du mois
+遡 remonter à
+塑 plastique
+岡 mont
+鋼 acier
+綱 aussière
+剛 fermeté
+缶 conserve
+鬱 dépression
+陶 poterie
+揺 balancer
+謡 chant
+尤 raisonnable
+就 s'attacher à
+蹴 taper du pied
+稽 comprendre
+墾 essartage
+懇 sociable
+貌 visage
+免 excuser
+逸 déviant
+晩 soir
+勉 exercice
+象 éléphant
+像 représentation
+馬 cheval
+駒 poulain
+験 vérification
+騎 cavalier
+駐 stationner
+駆 conduire
+駅 gare
+騒 tapage
+駄 fardeau
+驚 étonnement
+篤 intense
+騰 inflation
+罵 insulter
+虎 tigre
+虜 captif
+膚 derme
+虚 vacuité
+戯 farce
+虞 crainte
+慮 prudence
+劇 théâtre
+虐 tyranniser
+鹿 cerf
+薦 recommander
+慶 jubiler
+麗 charmant
+麓 piémont
+熊 ours
+能 capacité
+態 attitude
+罷 cessation
+寅 signe du tigre
+演 interpréter
+辰 signe du dragon
+辱 humilier
+震 séisme
+振 secouer
+娠 grossesse
+唇 lèvres
+農 agriculture
+濃 concentré
+送 envoyer
+関 relation
+咲 fleurir
+朕 pluriel de majesté
+鬼 démon
+醜 laid
+魂 âme
+魔 sorcière
+魅 fascinant
+塊 motte
+襲 attaquer
+丑 signe du buffle
+羞 pudeur
+巳 signe du serpent
+偲 évoquer le souvenir
