@@ -16,13 +16,18 @@ class KanjiInfos:
         cls,
         kanjis_and_keywords: Iterable[Tuple[str, str]],
         replacements: Mapping[str, str],
+        stories: Mapping[str, str],
     ) -> "KanjiInfos":
         kanji_infos = []
         for i, (kanji, keyword) in enumerate(kanjis_and_keywords, start=1):
-            keyword = replacements.get(kanji, keyword)
-            svg = get_svg(kanji)
             kanji_infos.append(
-                KanjiInfo(keyword=keyword, kanji=kanji, svg=svg, story="", identifier=i)
+                KanjiInfo(
+                    keyword=replacements.get(kanji, keyword),
+                    kanji=kanji,
+                    svg=get_svg(kanji),
+                    story=stories.get(kanji, ""),
+                    identifier=i,
+                )
             )
 
         return KanjiInfos(kanji_infos)
