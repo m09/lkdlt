@@ -7,8 +7,7 @@ from genanki import Deck, Model, Note, Package, guid_for
 from typer import Argument
 
 from .. import card
-from ..kanji_infos import KanjiInfos
-from ..loading import load_kanjis_and_keywords, load_replacements, load_stories
+from ..loading import load_kanji_infos
 from . import app
 
 
@@ -44,16 +43,8 @@ model = Model(
 def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     deck = Deck(1253852384, "Japonais::Les Kanjis dans la tête")
 
-    lkdlt_path = Path.home() / "work" / "m09" / "nihongo" / "kanjis"
-
-    replacements = load_replacements(lkdlt_path / "edits.txt")
-    kanjis_and_keywords = load_kanjis_and_keywords(lkdlt_path / "main-list.txt")
-    stories = load_stories(Path.home() / "downloads" / "my_stories.csv")
-
-    kanji_infos = KanjiInfos.from_data(kanjis_and_keywords, replacements, stories)
-
     unknown = []
-    for kanji_info in islice(kanji_infos, limit):
+    for kanji_info in islice(load_kanji_infos(stories_required=True), limit):
         if kanji_info.svg is None:
             unknown.append(kanji_info.kanji)
             svg = ""
