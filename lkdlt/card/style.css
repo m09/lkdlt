@@ -23,6 +23,11 @@
 .nightMode a  { color: lightblue; }
 .deck-info { color: #666666; }
 .nightMode .deck-info { color: #AAAAAA; }
+.histoire .composant, .histoire .motclef { font-weight: bold; }
+.histoire .composant { color: blue; }
+.histoire .motclef { color: green; }
+.nightMode .histoire .composant { color: lightblue; }
+.nightMode .histoire .motclef { color: lightgreen; }
 
 /* SVG customizations */
 
