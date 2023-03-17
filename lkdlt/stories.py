@@ -1,6 +1,6 @@
 from re import IGNORECASE
 from re import compile as re_compile
-from re import sub
+from re import escape, sub
 
 _component_pattern = re_compile(r"\*([^*]+)\*")
 _keyword_pattern = re_compile(r"#([^#]+)#")
@@ -13,7 +13,7 @@ def process_story_to_html(keyword: str, story: str) -> str:
     new_story = _keyword_pattern.sub(r'<span class="motclef">\1</span>', story)
     story = (
         sub(
-            rf"\b{keyword}\b",
+            rf"\b{escape(keyword)}\b",
             f'<span class="motclef">{keyword}</span>',
             story,
             flags=IGNORECASE,
