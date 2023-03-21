@@ -10,7 +10,7 @@ from .stories import process_story_to_html
 def load_kanji_infos(
     should_replace: bool = True, stories_required: bool = False
 ) -> list[KanjiInfo]:
-    lkdlt_path = Path.home() / "work" / "m09" / "nihongo" / "kanjis"
+    lkdlt_path = Path.home() / "gh" / "m09" / "nihongo" / "kanjis"
 
     return KanjiInfo.from_data(
         _load_kanjis_and_keywords(lkdlt_path / "main-list.txt"),
