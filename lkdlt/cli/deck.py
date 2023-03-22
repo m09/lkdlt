@@ -7,6 +7,7 @@ from genanki import Deck, Model, Note, Package, guid_for
 from typer import Argument
 
 from .. import card
+from ..config import Config
 from ..loading import load_kanji_infos
 from . import app
 
@@ -44,7 +45,9 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     deck = Deck(1253852384, "Japonais::Les Kanjis dans la tête")
 
     unknown = []
-    for kanji_info in islice(load_kanji_infos(stories_required=True), limit):
+    config = Config.load()
+    kanji_infos = load_kanji_infos(config=config, do_replacements=True, do_stories=True)
+    for kanji_info in islice(kanji_infos, limit):
         if kanji_info.svg is None:
             unknown.append(kanji_info.kanji)
             svg = ""
