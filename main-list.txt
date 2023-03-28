@@ -2139,7 +2139,7 @@
 遇	entrevue
 愚	stupide
 隅	coin
-逆	chamois
+逆	inverse
 朔	premier du mois
 遡	remonter à
 塑	plastique

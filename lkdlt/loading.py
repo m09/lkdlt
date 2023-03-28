@@ -23,7 +23,7 @@ def _load_replacements(path: Path) -> Dict[str, str]:
         for line in fh:
             line = line.strip()
             if line:
-                _, kanji, replacement = line.split(" ", maxsplit=2)
+                _, kanji, replacement = line.split("\t", maxsplit=2)
                 replacements[kanji] = replacement
     return replacements
 
@@ -40,6 +40,4 @@ def _load_stories(path: Path) -> Dict[str, str]:
 def _load_kanjis_and_keywords(path: Path) -> Iterator[Tuple[str, str]]:
     with path.open(encoding="utf8") as fh:
         for line in fh:
-            yield cast(
-                Tuple[str, str], tuple(x.strip() for x in line.split(maxsplit=1))
-            )
+            yield cast(Tuple[str, str], tuple(x.strip() for x in line.split("\t")))
