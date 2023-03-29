@@ -20,17 +20,21 @@ class AnkiConnect:
     def add_note(cls, deck_name: str, model_name: str, fields: dict[str, str]) -> None:
         result = cls._invoke(
             "addNote",
-            deckName=deck_name,
-            modelName=model_name,
-            fields=fields,
-            options=dict(
-                allowDuplicate=False,
-                duplicateScope="deck",
-                duplicateScopeOptions=dict(deckName=deck_name, checkAllModels=False),
+            note=dict(
+                deckName=deck_name,
+                modelName=model_name,
+                fields=fields,
+                options=dict(
+                    allowDuplicate=False,
+                    duplicateScope="deck",
+                    duplicateScopeOptions=dict(
+                        deckName=deck_name, checkAllModels=False
+                    ),
+                ),
             ),
         )
-        if result:
-            raise Exception(f"Could not create card with fields {fields}")
+        if not result:
+            raise Exception(f"Could not create card with fields {fields}.")
 
     @staticmethod
     def _invoke(action: str, **params: Any) -> Any:
