@@ -11,6 +11,14 @@ class Config(BaseModel):
     kanji_path: Path
     edits_path: Path
     stories_path: Path
+    deck_name: str
+    model_name: str
+    keyword_field: str
+    kanji_field: str
+    svg_found_field: str
+    svg_field: str
+    story_field: str
+    identifier_field: str
 
     @classmethod
     def load(cls) -> "Config":
