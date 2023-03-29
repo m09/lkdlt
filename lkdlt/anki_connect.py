@@ -1,6 +1,9 @@
 import json
 import urllib.request
 from typing import Any
+from urllib.error import URLError
+
+from .utils import error
 
 
 class AnkiConnect:
@@ -41,17 +44,20 @@ class AnkiConnect:
         request_json = json.dumps(dict(action=action, params=params, version=6)).encode(
             "utf-8"
         )
-        response = json.load(
-            urllib.request.urlopen(
-                urllib.request.Request("http://localhost:8765", request_json)
+        try:
+            response = json.load(
+                urllib.request.urlopen(
+                    urllib.request.Request("http://localhost:8765", request_json)
+                )
             )
-        )
+        except URLError:
+            error("Could not open Anki Connect URL. Is Anki running?")
         if len(response) != 2:
-            raise Exception("Response has an unexpected number of fields")
+            error("Response has an unexpected number of fields")
         if "error" not in response:
-            raise Exception("Response is missing required error field")
+            error("Response is missing required error field")
         if "result" not in response:
-            raise Exception("Response is missing required result field")
+            error("Response is missing required result field")
         if response["error"] is not None:
-            raise Exception(response["error"])
+            error(response["error"])
         return response["result"]
