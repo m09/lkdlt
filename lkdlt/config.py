@@ -19,6 +19,7 @@ class Config(BaseModel):
     svg_field: str
     story_field: str
     identifier_field: str
+    kanji_dic_path: str
 
     @classmethod
     def load(cls) -> "Config":
