@@ -6,23 +6,31 @@ from yaml import safe_load
 from .paths import config_path
 
 
-class Config(BaseModel):
+class _Config(BaseModel):
     animcjk_dir: Path
     kanji_path: Path
     edits_path: Path
     stories_path: Path
-    deck_name: str
-    model_name: str
-    keyword_field: str
-    kanji_field: str
-    svg_found_field: str
-    svg_field: str
-    story_field: str
-    identifier_field: str
     kanji_dic_path: str
+    kanji_deck_name: str
+    kanji_model_name: str
+    kanji_keyword_field: str
+    kanji_kanji_field: str
+    kanji_svg_found_field: str
+    kanji_svg_field: str
+    kanji_story_field: str
+    kanji_identifier_field: str
+    vocab_deck_name: str
+    vocab_kanji_keywords_field: str
+    vocab_word_field: str
+    vocab_word_model_name: str
+    vocab_keywords_format: str
 
     @classmethod
-    def load(cls) -> "Config":
+    def load(cls) -> "_Config":
         with config_path.open(encoding="utf8") as fh:
             obj = safe_load(fh)
-        return Config.parse_obj(obj)
+        return _Config.parse_obj(obj)
+
+
+config = _Config.load()

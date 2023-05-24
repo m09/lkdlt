@@ -2,14 +2,12 @@ from csv import DictReader
 from pathlib import Path
 from typing import Dict, Iterator, Tuple, cast
 
-from .config import Config
+from .config import config
 from .model import KanjiInfo
 from .stories import process_story_to_html
 
 
-def load_kanji_infos(
-    config: Config, *, do_replacements: bool, do_stories: bool
-) -> list[KanjiInfo]:
+def load_kanji_infos(do_replacements: bool, do_stories: bool) -> list[KanjiInfo]:
     return KanjiInfo.from_data(
         _load_kanjis_and_keywords(config.kanji_path),
         _load_replacements(config.edits_path) if do_replacements else {},
