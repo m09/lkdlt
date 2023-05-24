@@ -59,11 +59,12 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
             svg = kanji_info.svg
             svg_found = "Oui"
         words = "\n".join(
-            f"<dt>{furigana_to_ruby(word)}</dt><dd>{meaning}</dd>"
+            f'<tr><td class="word">{furigana_to_ruby(word)}</td>'
+            f'<td class="meaning">{meaning}</td></tr>'
             for word, meaning in islice(kanji_to_words[kanji_info.kanji], 5)
         )
         if words:
-            words = f"<dl>{words}</dl>"
+            words = f'<table class="words">{words}</table>'
         fields = {
             config.kanji_keyword_field: kanji_info.keyword,
             config.kanji_kanji_field: kanji_info.kanji,
