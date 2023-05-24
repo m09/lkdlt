@@ -1,11 +1,12 @@
-from collections import defaultdict
-
-from ..loading import load_kanji_infos
 from . import app
 
 
 @app.command()
 def stats() -> None:
+    from collections import defaultdict
+
+    from ..loading import load_kanji_infos
+
     kanji_infos = load_kanji_infos(do_replacements=False, do_stories=False)
     keywords = defaultdict(set)
 

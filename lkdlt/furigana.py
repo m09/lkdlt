@@ -16,12 +16,24 @@ def _repl_sgml(match: Match) -> str:
     )
 
 
+def _repl_ruby(match: Match) -> str:
+    return (
+        f"<ruby><rb>{match.group(1)}</rb><rt>{match.group(2)}</rt></ruby>"
+        if match.group(2)
+        else match.group(1)
+    )
+
+
 def furigana_to_kanji(furigana: str) -> str:
     return _pattern.sub(r"\1", furigana)
 
 
 def furigana_to_kana(furigana: str) -> str:
     return _pattern.sub(_repl_kana, furigana)
+
+
+def furigana_to_ruby(furigana: str) -> str:
+    return _pattern.sub(_repl_ruby, furigana)
 
 
 def furigana_to_sgml(furigana: str) -> str:

@@ -16,6 +16,7 @@ class _Config(BaseModel):
     kanji_model_name: str
     kanji_keyword_field: str
     kanji_kanji_field: str
+    kanji_words_field: str
     kanji_svg_found_field: str
     kanji_svg_field: str
     kanji_story_field: str
@@ -23,6 +24,9 @@ class _Config(BaseModel):
     vocab_deck_name: str
     vocab_kanji_keywords_field: str
     vocab_word_field: str
+    vocab_word_meaning_field: str
+    vocab_word_kana_field: str
+    vocab_word_kanji_field: str
     vocab_word_model_name: str
     vocab_keywords_format: str
 

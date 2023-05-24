@@ -3,7 +3,7 @@ import urllib.request
 from typing import Any
 from urllib.error import URLError
 
-from .utils import error
+from .utils import Stats, error
 
 
 class AnkiConnect:
@@ -18,6 +18,22 @@ class AnkiConnect:
     @classmethod
     def update_note_fields(cls, id: int, fields: dict[str, str]) -> None:
         cls._invoke("updateNoteFields", note=dict(id=id, fields=fields))
+
+    @classmethod
+    def update_field_with_stats(
+        cls,
+        note_info: dict[str, Any],
+        field: str,
+        new_value: str,
+        stats: Stats,
+    ) -> None:
+        old_value = note_info["fields"][field]["value"]
+        if new_value != old_value:
+            if not old_value:
+                stats.added += 1
+            else:
+                stats.modified += 1
+            cls.update_note_fields(note_info["noteId"], {field: new_value})
 
     @classmethod
     def add_note(cls, deck_name: str, model_name: str, fields: dict[str, str]) -> None:

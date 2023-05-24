@@ -1,23 +1,48 @@
-from itertools import islice
 from typing import Optional
 
-from rich.progress import track
 from typer import Argument
 
-from ..anki_connect import AnkiConnect
-from ..config import config
-from ..loading import load_kanji_infos
 from . import app
 
 
 @app.command()
 def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
+    from collections import defaultdict
+    from itertools import islice
+
+    from rich.progress import track
+
+    from ..anki_connect import AnkiConnect
+    from ..config import config
+    from ..furigana import furigana_to_ruby
+    from ..loading import load_kanji_infos
+    from ..utils import is_kanji
+
     anki_connect = AnkiConnect()
     note_ids = anki_connect.find_notes(f'"deck:{config.kanji_deck_name}"')
     note_infos = anki_connect.notes_info(note_ids)
     kanji_to_note_infos = {
         n["fields"][config.kanji_kanji_field]["value"]: n for n in note_infos
     }
+
+    word_note_ids = anki_connect.find_notes(
+        f'"deck:{config.vocab_deck_name}" "note:{config.vocab_word_model_name}" -is:new'
+    )
+    word_note_infos = anki_connect.notes_info(word_note_ids)
+    kanji_to_words = defaultdict(set)
+    for word_note_info in word_note_infos:
+        word = word_note_info["fields"][config.vocab_word_field]["value"]
+        for character in word:
+            if is_kanji(character):
+                kanji_to_words[character].add(
+                    (
+                        word,
+                        word_note_info["fields"][config.vocab_word_meaning_field][
+                            "value"
+                        ],
+                    )
+                )
+    print(kanji_to_words)
 
     modified = 0
     added = 0
@@ -33,9 +58,16 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
         else:
             svg = kanji_info.svg
             svg_found = "Oui"
+        words = "\n".join(
+            f"<dt>{furigana_to_ruby(word)}</dt><dd>{meaning}</dd>"
+            for word, meaning in islice(kanji_to_words[kanji_info.kanji], 5)
+        )
+        if words:
+            words = f"<dl>{words}</dl>"
         fields = {
             config.kanji_keyword_field: kanji_info.keyword,
             config.kanji_kanji_field: kanji_info.kanji,
+            config.kanji_words_field: words,
             config.kanji_svg_found_field: svg_found,
             config.kanji_svg_field: svg,
             config.kanji_story_field: kanji_info.story,
