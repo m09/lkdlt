@@ -1,5 +1,6 @@
 import json
 import urllib.request
+from collections.abc import Callable
 from typing import Any
 from urllib.error import URLError
 
@@ -24,16 +25,17 @@ class AnkiConnect:
         cls,
         note_info: dict[str, Any],
         field: str,
-        new_value: str,
+        new_value: str | Callable[[str], str],
         stats: Stats,
     ) -> None:
         old_value = note_info["fields"][field]["value"]
-        if new_value != old_value:
+        v = new_value(old_value) if callable(new_value) else new_value
+        if v != old_value:
             if not old_value:
                 stats.added += 1
             else:
                 stats.modified += 1
-            cls.update_note_fields(note_info["noteId"], {field: new_value})
+            cls.update_note_fields(note_info["noteId"], {field: v})
 
     @classmethod
     def add_note(cls, deck_name: str, model_name: str, fields: dict[str, str]) -> None:

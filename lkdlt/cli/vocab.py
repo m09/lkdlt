@@ -7,7 +7,7 @@ def vocab() -> None:
 
     from ..anki_connect import AnkiConnect
     from ..config import config
-    from ..furigana import furigana_to_kana, furigana_to_kanji
+    from ..furigana import clean_empty_furigana, furigana_to_kana, furigana_to_kanji
     from ..loading import load_kanji_infos
     from ..utils import Stats, is_kanji
 
@@ -23,6 +23,7 @@ def vocab() -> None:
     keywords_stats = Stats("keywords")
     kana_stats = Stats("kana")
     kanji_stats = Stats("kanji")
+    empty_furigana_stats = Stats("empty furigana")
     for note_info in track(note_infos):
         word = note_info["fields"][config.vocab_word_field]["value"]
         anki_connect.update_field_with_stats(
@@ -50,7 +51,20 @@ def vocab() -> None:
             kanji_keywords,
             keywords_stats,
         )
+        anki_connect.update_field_with_stats(
+            note_info,
+            config.vocab_word_field,
+            clean_empty_furigana,
+            empty_furigana_stats,
+        )
+        anki_connect.update_field_with_stats(
+            note_info,
+            config.vocab_example_field,
+            clean_empty_furigana,
+            empty_furigana_stats,
+        )
 
     print(keywords_stats)
     print(kana_stats)
     print(kanji_stats)
+    print(empty_furigana_stats)
