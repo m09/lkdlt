@@ -16,6 +16,7 @@ spacy = "^3"
 tatoebatools = "^0.2"
 typer = "^0.7"
 xmltodict = "^0.13"
+jcconv3 = "^1.2.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23"

@@ -7,9 +7,9 @@ def vocab() -> None:
 
     from ..anki_connect import AnkiConnect
     from ..config import config
-    from ..furigana import clean_empty_furigana, furigana_to_kana, furigana_to_kanji
+    from ..furigana import Furigana, clean_empty_furigana, normalize_furigana
     from ..loading import load_kanji_infos
-    from ..utils import Stats, is_kanji
+    from ..utils import is_kanji
 
     kanji_infos = load_kanji_infos(do_replacements=True, do_stories=False)
     keywords = {kanji_info.kanji: kanji_info.keyword for kanji_info in kanji_infos}
@@ -20,61 +20,35 @@ def vocab() -> None:
     )
     note_infos = anki_connect.notes_info(note_ids)
 
-    keywords_stats = Stats("keywords")
-    kana_stats = Stats("kana")
-    kanji_stats = Stats("kanji")
-    kanji_kana_stats = Stats("kanji and kana")
-    empty_furigana_stats = Stats("empty furigana")
+    unknown_kanjis = set()
+    edited = 0
     for note_info in track(note_infos):
-        word = note_info["fields"][config.vocab_word_field]["value"]
-        anki_connect.update_field_with_stats(
-            note_info, config.vocab_word_kana_field, furigana_to_kana(word), kana_stats
-        )
-        kanji = furigana_to_kanji(word)
-        kana = furigana_to_kana(word)
-        anki_connect.update_field_with_stats(
-            note_info, config.vocab_word_kanji_field, kanji, kanji_stats
-        )
-        anki_connect.update_field_with_stats(
-            note_info, config.vocab_word_kana_field, kana, kana_stats
-        )
-        anki_connect.update_field_with_stats(
-            note_info,
-            config.vocab_word_kanji_kana_field,
-            kanji + kana,
-            kanji_kana_stats,
-        )
+        word = anki_connect.get_field(note_info, config.vocab_word_field)
+        word_furigana = Furigana(word)
         word_kanjis = []
         for character in word:
             if character in keywords:
                 word_kanjis.append((character, keywords[character]))
             elif is_kanji(character):
-                keywords_stats.unknown.add(character)
+                unknown_kanjis.add(character)
         kanji_keywords = config.vocab_keywords_join_string.join(
             config.vocab_keywords_format.format(kanji=kanji, keyword=keyword)
             for kanji, keyword in word_kanjis
         )
-        anki_connect.update_field_with_stats(
-            note_info,
-            config.vocab_kanji_keywords_field,
-            kanji_keywords,
-            keywords_stats,
-        )
-        anki_connect.update_field_with_stats(
-            note_info,
-            config.vocab_word_field,
-            clean_empty_furigana,
-            empty_furigana_stats,
-        )
-        anki_connect.update_field_with_stats(
-            note_info,
-            config.vocab_example_field,
-            clean_empty_furigana,
-            empty_furigana_stats,
-        )
-
-    print(keywords_stats)
-    print(kana_stats)
-    print(kanji_stats)
-    print(kanji_kana_stats)
-    print(empty_furigana_stats)
+        fields = {
+            config.vocab_word_field: word_furigana.normalized,
+            config.vocab_word_kanji_field: word_furigana.kanji,
+            config.vocab_word_kana_field: word_furigana.kana,
+            config.vocab_word_kanji_kana_field: word_furigana.kanji
+            + word_furigana.kana,
+            config.vocab_example_field: normalize_furigana(
+                clean_empty_furigana(
+                    anki_connect.get_field(note_info, config.vocab_example_field)
+                )
+            ),
+            config.vocab_kanji_keywords_field: kanji_keywords,
+        }
+        edited += anki_connect.update_fields(note_info, fields)
+    print(f"Edited {edited} notes")
+    if unknown_kanjis:
+        print(f"Unknown kanjis: {' '.join(unknown_kanjis)}")

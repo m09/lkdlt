@@ -1,10 +1,9 @@
 import json
 import urllib.request
-from collections.abc import Callable
 from typing import Any
 from urllib.error import URLError
 
-from .utils import Stats, error
+from .utils import error
 
 
 class AnkiConnect:
@@ -21,21 +20,22 @@ class AnkiConnect:
         cls._invoke("updateNoteFields", note=dict(id=id, fields=fields))
 
     @classmethod
-    def update_field_with_stats(
+    def get_field(cls, note_info: dict[str, Any], field: str) -> str:
+        return note_info["fields"][field]["value"]
+
+    @classmethod
+    def update_fields(
         cls,
         note_info: dict[str, Any],
-        field: str,
-        new_value: str | Callable[[str], str],
-        stats: Stats,
-    ) -> None:
-        old_value = note_info["fields"][field]["value"]
-        v = new_value(old_value) if callable(new_value) else new_value
-        if v != old_value:
-            if not old_value:
-                stats.added += 1
-            else:
-                stats.modified += 1
-            cls.update_note_fields(note_info["noteId"], {field: v})
+        fields: dict[str, str],
+    ) -> bool:
+        to_update = {
+            k: v for k, v in fields.items() if note_info["fields"][k]["value"] != v
+        }
+        if to_update:
+            cls.update_note_fields(note_info["noteId"], fields)
+            return True
+        return False
 
     @classmethod
     def add_note(cls, deck_name: str, model_name: str, fields: dict[str, str]) -> None:
