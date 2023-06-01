@@ -23,17 +23,26 @@ def vocab() -> None:
     keywords_stats = Stats("keywords")
     kana_stats = Stats("kana")
     kanji_stats = Stats("kanji")
+    kanji_kana_stats = Stats("kanji and kana")
     empty_furigana_stats = Stats("empty furigana")
     for note_info in track(note_infos):
         word = note_info["fields"][config.vocab_word_field]["value"]
         anki_connect.update_field_with_stats(
             note_info, config.vocab_word_kana_field, furigana_to_kana(word), kana_stats
         )
+        kanji = furigana_to_kanji(word)
+        kana = furigana_to_kana(word)
+        anki_connect.update_field_with_stats(
+            note_info, config.vocab_word_kanji_field, kanji, kanji_stats
+        )
+        anki_connect.update_field_with_stats(
+            note_info, config.vocab_word_kana_field, kana, kana_stats
+        )
         anki_connect.update_field_with_stats(
             note_info,
-            config.vocab_word_kanji_field,
-            furigana_to_kanji(word),
-            kanji_stats,
+            config.vocab_word_kanji_kana_field,
+            kanji + kana,
+            kanji_kana_stats,
         )
         word_kanjis = []
         for character in word:
@@ -67,4 +76,5 @@ def vocab() -> None:
     print(keywords_stats)
     print(kana_stats)
     print(kanji_stats)
+    print(kanji_kana_stats)
     print(empty_furigana_stats)

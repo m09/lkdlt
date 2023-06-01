@@ -27,6 +27,7 @@ class _Config(BaseModel):
     vocab_word_meaning_field: str
     vocab_word_kana_field: str
     vocab_word_kanji_field: str
+    vocab_word_kanji_kana_field: str
     vocab_word_model_name: str
     vocab_example_field: str
     vocab_keywords_format: str
