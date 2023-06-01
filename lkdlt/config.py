@@ -31,6 +31,7 @@ class _Config(BaseModel):
     vocab_word_model_name: str
     vocab_example_field: str
     vocab_keywords_format: str
+    vocab_keywords_join_string: str
 
     @classmethod
     def load(cls) -> "_Config":

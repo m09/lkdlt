@@ -50,7 +50,7 @@ def vocab() -> None:
                 word_kanjis.append((character, keywords[character]))
             elif is_kanji(character):
                 keywords_stats.unknown.add(character)
-        kanji_keywords = " ⋅ ".join(
+        kanji_keywords = config.vocab_keywords_join_string.join(
             config.vocab_keywords_format.format(kanji=kanji, keyword=keyword)
             for kanji, keyword in word_kanjis
         )
