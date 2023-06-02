@@ -6,32 +6,54 @@ from yaml import safe_load
 from .paths import config_path
 
 
+class _VocabFields(BaseModel):
+    kanji_keywords: str
+    word: str
+    word_meaning: str
+    word_kana: str
+    word_kanji: str
+    word_kanji_kana: str
+    example: str
+
+
+class _Vocab(BaseModel):
+    deck_name: str
+    model_name: str
+    keywords_format: str
+    keywords_join_string: str
+    fields: _VocabFields
+
+
+class _KanjiFields(BaseModel):
+    keyword: str
+    on_pronunciation: str
+    furigana: str
+    kanji: str
+    words: str
+    svg_found: str
+    svg: str
+    story: str
+    identifier: str
+
+
+class _Kanji(BaseModel):
+    deck_name: str
+    model_name: str
+    fields: _KanjiFields
+
+
+class _Paths(BaseModel):
+    animcjk: Path
+    kanji: Path
+    edits: Path
+    stories: Path
+    kanjidic: Path
+
+
 class _Config(BaseModel):
-    animcjk_dir: Path
-    kanji_path: Path
-    edits_path: Path
-    stories_path: Path
-    kanji_dic_path: str
-    kanji_deck_name: str
-    kanji_model_name: str
-    kanji_keyword_field: str
-    kanji_kanji_field: str
-    kanji_words_field: str
-    kanji_svg_found_field: str
-    kanji_svg_field: str
-    kanji_story_field: str
-    kanji_identifier_field: str
-    vocab_deck_name: str
-    vocab_kanji_keywords_field: str
-    vocab_word_field: str
-    vocab_word_meaning_field: str
-    vocab_word_kana_field: str
-    vocab_word_kanji_field: str
-    vocab_word_kanji_kana_field: str
-    vocab_word_model_name: str
-    vocab_example_field: str
-    vocab_keywords_format: str
-    vocab_keywords_join_string: str
+    paths: _Paths
+    kanji: _Kanji
+    vocab: _Vocab
 
     @classmethod
     def load(cls) -> "_Config":

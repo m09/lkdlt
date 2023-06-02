@@ -17,6 +17,8 @@ tatoebatools = "^0.2"
 typer = "^0.7"
 xmltodict = "^0.13"
 jcconv3 = "^1.2.3"
+jamdict = "^0.1a11.post2"
+jamdict-data = "^1.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23"

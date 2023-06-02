@@ -15,34 +15,35 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     from ..anki_connect import AnkiConnect
     from ..config import config
     from ..furigana import furigana_to_ruby
+    from ..kanjidic import parse
     from ..loading import load_kanji_infos
     from ..utils import is_kanji
 
+    kanjis = parse()
     anki_connect = AnkiConnect()
-    note_ids = anki_connect.find_notes(f'"deck:{config.kanji_deck_name}"')
+    note_ids = anki_connect.find_notes(f'"deck:{config.kanji.deck_name}"')
     note_infos = anki_connect.notes_info(note_ids)
     kanji_to_note_infos = {
-        n["fields"][config.kanji_kanji_field]["value"]: n for n in note_infos
+        n["fields"][config.kanji.fields.kanji]["value"]: n for n in note_infos
     }
 
     word_note_ids = anki_connect.find_notes(
-        f'"deck:{config.vocab_deck_name}" "note:{config.vocab_word_model_name}" -is:new'
+        f'"deck:{config.vocab.deck_name}" "note:{config.vocab.model_name}" -is:new'
     )
     word_note_infos = anki_connect.notes_info(word_note_ids)
     kanji_to_words = defaultdict(set)
     for word_note_info in word_note_infos:
-        word = word_note_info["fields"][config.vocab_word_field]["value"]
+        word = word_note_info["fields"][config.vocab.fields.word]["value"]
         for character in word:
             if is_kanji(character):
                 kanji_to_words[character].add(
                     (
                         word,
-                        word_note_info["fields"][config.vocab_word_meaning_field][
+                        word_note_info["fields"][config.vocab.fields.word_meaning][
                             "value"
                         ],
                     )
                 )
-    print(kanji_to_words)
 
     modified = 0
     added = 0
@@ -65,25 +66,31 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
         )
         if words:
             words = f'<table class="words">{words}</table>'
+        try:
+            on = kanjis[kanji_info.kanji].on[0]
+        except (IndexError, KeyError):
+            on = ""
         fields = {
-            config.kanji_keyword_field: kanji_info.keyword,
-            config.kanji_kanji_field: kanji_info.kanji,
-            config.kanji_words_field: words,
-            config.kanji_svg_found_field: svg_found,
-            config.kanji_svg_field: svg,
-            config.kanji_story_field: kanji_info.story,
-            config.kanji_identifier_field: str(kanji_info.identifier),
+            config.kanji.fields.keyword: kanji_info.keyword,
+            config.kanji.fields.kanji: kanji_info.kanji,
+            config.kanji.fields.words: words,
+            config.kanji.fields.svg_found: svg_found,
+            config.kanji.fields.svg: svg,
+            config.kanji.fields.story: kanji_info.story,
+            config.kanji.fields.identifier: str(kanji_info.identifier),
+            config.kanji.fields.on_pronunciation: on,
+            config.kanji.fields.furigana: f"{kanji_info.kanji}[{on}]",
         }
         if kanji_info.kanji in kanji_to_note_infos:
             note_info = kanji_to_note_infos[kanji_info.kanji]
             anki_fields = {k: v["value"] for k, v in note_info["fields"].items()}
             if anki_fields != fields:
                 modified += 1
-                anki_connect.update_note_fields(note_info["noteId"], fields)
+                anki_connect.update_fields(note_info, fields)
         else:
             added += 1
             anki_connect.add_note(
-                config.kanji_deck_name, config.kanji_model_name, fields
+                config.kanji.deck_name, config.kanji.model_name, fields
             )
     if unknown:
         print(f"No SVG found for {', '.join(unknown)}.")

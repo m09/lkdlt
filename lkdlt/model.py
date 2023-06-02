@@ -5,6 +5,14 @@ from .animcjk import get_svg
 
 
 @dataclass
+class Kanji:
+    kanji: str
+    glosses: dict[str, tuple[str, ...]]
+    on: tuple[str, ...]
+    kun: tuple[str, ...]
+
+
+@dataclass
 class KanjiInfo:
     keyword: str
     kanji: str

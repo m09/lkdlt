@@ -9,9 +9,9 @@ from .stories import process_story_to_html
 
 def load_kanji_infos(do_replacements: bool, do_stories: bool) -> list[KanjiInfo]:
     return KanjiInfo.from_data(
-        _load_kanjis_and_keywords(config.kanji_path),
-        _load_replacements(config.edits_path) if do_replacements else {},
-        _load_stories(config.stories_path) if do_stories else {},
+        _load_kanjis_and_keywords(config.paths.kanji),
+        _load_replacements(config.paths.edits) if do_replacements else {},
+        _load_stories(config.paths.stories) if do_stories else {},
     )
 
 
