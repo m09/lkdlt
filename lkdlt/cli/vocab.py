@@ -9,6 +9,7 @@ def vocab() -> None:
     from ..config import config
     from ..furigana import Furigana, clean_empty_furigana, normalize_furigana
     from ..loading import load_kanji_infos
+    from ..pronunciation import any_to_text, text_to_styled
     from ..utils import is_kanji
 
     kanji_infos = load_kanji_infos(do_replacements=True, do_stories=False)
@@ -24,6 +25,11 @@ def vocab() -> None:
     edited = 0
     for note_info in track(note_infos):
         word = anki_connect.get_field(note_info, config.vocab.fields.word)
+        pronunciation = anki_connect.get_field(
+            note_info, config.vocab.fields.pronunciation_text
+        )
+        pronunciation_text = any_to_text(pronunciation)
+        pronunciation_styled = text_to_styled(pronunciation_text)
         word_furigana = Furigana(word)
         word_kanjis = []
         for character in word:
@@ -47,6 +53,8 @@ def vocab() -> None:
                 )
             ),
             config.vocab.fields.kanji_keywords: kanji_keywords,
+            config.vocab.fields.pronunciation_text: pronunciation_text,
+            config.vocab.fields.pronunciation_styled: pronunciation_styled,
         }
         edited += anki_connect.update_fields(note_info, fields)
     print(f"Edited {edited} notes")

@@ -1,0 +1,2 @@
+/え\
+<!-- accent_start --><svg class="pitch" width="67px" height="75px" viewBox="0 0 67 75"><text x="5" y="67.5" style="font-size:20px;font-family:sans-serif;fill:#000;">え</text><path d="m 16,5 35,25" style="fill:none;stroke:#000;stroke-width:1.5;"></path><circle r="5" cx="16" cy="5" style="opacity:1;fill:#000;"></circle><circle r="5" cx="51" cy="30" style="opacity:1;fill:#000;"></circle><circle r="3.25" cx="51" cy="30" style="opacity:1;fill:#fff;"></circle></svg><!-- accent_end -->
