@@ -14,6 +14,7 @@ class _VocabFields(BaseModel):
     word_kanji: str
     word_kanji_kana: str
     example: str
+    example_translation: str
     pronunciation_text: str
     pronunciation_styled: str
 
