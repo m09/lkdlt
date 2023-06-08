@@ -5,6 +5,9 @@ from re import finditer, sub
 
 
 def _normalize_text(pronunciation: str) -> str:
+    pronunciation = pronunciation.replace("／", "/")
+    pronunciation = pronunciation.replace("＼", "\\")
+    pronunciation = pronunciation.replace("￣", "")
     return (
         pronunciation
         if "\\" not in pronunciation or "/" in pronunciation
