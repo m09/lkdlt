@@ -59,7 +59,7 @@ def examples() -> None:
                     "# Could not parse the provided input, trying again."
 
         print(selected)
-        ja, fr = results[selected]
+        ja, fr = random_examples[selected]
 
         fields = {
             config.vocab.fields.example: ja,
