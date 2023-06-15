@@ -26,6 +26,7 @@ _pattern_double = re_compile(
      """,
     flags=VERBOSE,
 )
+_pattern_empty = re_compile(r"\[\s*\]")
 
 
 def _repl_clean_empty(match: Match) -> str:
@@ -59,7 +60,7 @@ def furigana_to_sgml(furigana: str) -> str:
 
 
 def clean_empty_furigana(furigana: str) -> str:
-    furigana = furigana.replace("[ ]", "\t")
+    furigana = _pattern_empty.sub("\t", furigana)
     furigana = _pattern.sub(_repl_clean_empty, furigana)
     return furigana.replace("\t", "")
 
