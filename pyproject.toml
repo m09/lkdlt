@@ -18,6 +18,7 @@ sudachipy = "^0.6"
 tatoebatools = "^0.2"
 typer = "^0.7"
 xmltodict = "^0.13"
+lxml = "^4.9.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23"

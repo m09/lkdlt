@@ -1,10 +1,12 @@
+from typing import Optional
+
 from typer import Argument
 
 from . import app
 
 
 @app.command()
-def deck(limit: int | None = Argument(None)) -> None:  # noqa: B008
+def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     from collections import defaultdict
     from itertools import islice
 

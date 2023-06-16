@@ -10,6 +10,7 @@ class _VocabFields(BaseModel):
     kanji_keywords: str
     word: str
     word_meaning: str
+    word_meaning_extended: str
     word_kana: str
     word_kanji: str
     word_kanji_kana: str
