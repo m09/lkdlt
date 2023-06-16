@@ -1,4 +1,3 @@
-from ..utils import common_prefix, common_suffix
 from . import app
 
 
@@ -7,7 +6,7 @@ def cjve() -> None:
     from rich.progress import track
 
     from ..anki_connect import AnkiConnect
-    from ..utils import is_kanji
+    from ..utils import common_prefix, common_suffix, is_kanji
 
     anki_connect = AnkiConnect()
     note_ids = anki_connect.find_notes('"deck:Core Japanese Vocabulary Extended"')
