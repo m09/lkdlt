@@ -78,10 +78,10 @@ def _svg_to_text(pronunciation: str) -> str:
 
 
 def _akebi_to_text(pronunciation: str) -> str:
-    pronunciation = sub('<u class="low-pitch">(.*?)</u>', r"\1", pronunciation)
-    pronunciation = sub('<b class="high-pitch">(.*?)</b>', r"/\1\\", pronunciation)
+    pronunciation = sub(r'<u class="low-pitch">(.*?)</u>', r"\1", pronunciation)
+    pronunciation = sub(r'<b class="high-pitch">(.*?)</b>', r"/\1\\", pronunciation)
     pronunciation = sub(
-        '<b class="high-pitch-unterminated">(.*?)</b>', r"/\1", pronunciation
+        r'<b class="high-pitch-unterminated">(.*?)</b>', r"/\1", pronunciation
     )
     return pronunciation
 

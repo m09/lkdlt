@@ -2,7 +2,7 @@ from . import app
 
 
 @app.command()
-def examples(selection: bool = False) -> None:
+def examples(selection: bool = False, due: bool = False) -> None:
     from random import sample
 
     from rich.console import Console
@@ -17,6 +17,10 @@ def examples(selection: bool = False) -> None:
     anki_connect = AnkiConnect()
     if selection:
         note_ids = anki_connect.selected_notes()
+    elif due:
+        note_ids = anki_connect.find_notes(
+            f'"deck:{config.vocab.deck_name}" "note:{config.vocab.model_name}" is:due'
+        )
     else:
         note_ids = anki_connect.find_notes(
             f'"deck:{config.vocab.deck_name}" "note:{config.vocab.model_name}"'
