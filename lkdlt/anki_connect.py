@@ -12,6 +12,10 @@ class AnkiConnect:
         return cls._invoke("findNotes", query=query)
 
     @classmethod
+    def selected_notes(cls) -> list[int]:
+        return cls._invoke("guiSelectedNotes")
+
+    @classmethod
     def notes_info(cls, note_ids: list[int]) -> list[dict[str, Any]]:
         return cls._invoke("notesInfo", notes=note_ids)
 
