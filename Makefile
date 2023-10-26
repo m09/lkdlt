@@ -1,4 +1,4 @@
-dirs := lkdlt tests
+dirs := lkdlt
 
 check:
 	black --check $(dirs)

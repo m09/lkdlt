@@ -42,7 +42,7 @@ def vocab() -> None:
         for character in word:
             if character in keywords:
                 word_kanjis.append((character, keywords[character]))
-            elif is_kanji(character):
+            elif is_kanji(character) and character != "々":
                 unknown_kanjis.add(character)
         kanji_keywords = config.vocab.keywords_join_string.join(
             config.vocab.keywords_format.format(kanji=kanji, keyword=keyword)

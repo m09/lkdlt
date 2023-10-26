@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 from typer import Argument
 
@@ -7,7 +7,6 @@ from . import app
 
 @app.command()
 def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
-    from collections import defaultdict
     from itertools import islice
 
     from rich.progress import track
@@ -17,7 +16,6 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     from ..furigana import furigana_to_ruby
     from ..kanjidic import parse
     from ..loading import load_kanji_infos
-    from ..utils import is_kanji
 
     kanjis = parse()
     anki_connect = AnkiConnect()
@@ -31,19 +29,7 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
         f'"deck:{config.vocab.deck_name}" "note:{config.vocab.model_name}" -is:new'
     )
     word_note_infos = anki_connect.notes_info(word_note_ids)
-    kanji_to_words = defaultdict(set)
-    for word_note_info in word_note_infos:
-        word = word_note_info["fields"][config.vocab.fields.word]["value"]
-        for character in word:
-            if is_kanji(character):
-                kanji_to_words[character].add(
-                    (
-                        word,
-                        word_note_info["fields"][config.vocab.fields.word_meaning][
-                            "value"
-                        ],
-                    )
-                )
+    kanji_to_words = _build_kanji_to_words_index(word_note_infos)
 
     modified = 0
     added = 0
@@ -95,3 +81,27 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     if unknown:
         print(f"No SVG found for {', '.join(unknown)}.")
     print(f"Added {added} notes, modified {modified} notes.")
+
+
+def _build_kanji_to_words_index(
+    word_note_infos: list[dict[str, Any]]
+) -> dict[str, set[tuple[str, str]]]:
+    from ..config import config
+    from ..utils import is_kanji
+
+    kanji_to_words: dict[str, set[tuple[str, str]]] = {}
+    for word_note_info in word_note_infos:
+        word = word_note_info["fields"][config.vocab.fields.word]["value"]
+        for character in word:
+            if is_kanji(character):
+                if character not in kanji_to_words:
+                    kanji_to_words[character] = set()
+                kanji_to_words[character].add(
+                    (
+                        word,
+                        word_note_info["fields"][config.vocab.fields.word_meaning][
+                            "value"
+                        ],
+                    )
+                )
+    return kanji_to_words
