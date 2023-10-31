@@ -52,8 +52,6 @@ def vocab() -> None:
             config.vocab.fields.word: word_furigana.normalized,
             config.vocab.fields.word_kanji: word_furigana.kanji,
             config.vocab.fields.word_kana: word_furigana.kana,
-            config.vocab.fields.word_kanji_kana: word_furigana.kanji
-            + word_furigana.kana,
             config.vocab.fields.example: normalize_furigana(
                 clean_empty_furigana(
                     anki_connect.get_field(note_info, config.vocab.fields.example)

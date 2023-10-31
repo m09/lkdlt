@@ -13,7 +13,6 @@ class _VocabFields(BaseModel):
     word_meaning_extended: str
     word_kana: str
     word_kanji: str
-    word_kanji_kana: str
     example: str
     example_translation: str
     pronunciation_text: str
