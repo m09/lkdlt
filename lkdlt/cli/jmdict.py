@@ -3,12 +3,11 @@ from . import app
 
 @app.command()
 def jmdict() -> None:
-    from pathlib import Path
-
+    from ..config import config
     from ..jmdict import JMDict
 
     jmdict = JMDict()
-    jmdict.parse(Path.home() / "downloads" / "JMdict.gz")
+    jmdict.parse(config.paths.jmdict)
 
     print(jmdict.search("話す", "fre")[0].short)
     print("***")

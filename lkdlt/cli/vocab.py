@@ -3,8 +3,6 @@ from . import app
 
 @app.command()
 def vocab() -> None:
-    from pathlib import Path
-
     from rich.progress import track
 
     from ..anki_connect import AnkiConnect
@@ -25,7 +23,7 @@ def vocab() -> None:
     note_infos = anki_connect.notes_info(note_ids)
 
     jmdict = JMDict()
-    jmdict.parse(Path.home() / "downloads" / "JMdict.gz")
+    jmdict.parse(config.paths.jmdict)
 
     unknown_kanjis = set()
     edited = 0
