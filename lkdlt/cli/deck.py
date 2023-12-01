@@ -26,7 +26,7 @@ def deck(limit: Optional[int] = Argument(None)) -> None:  # noqa: B008
     }
 
     word_note_ids = anki_connect.find_notes(
-        f'"deck:{config.vocab.deck_name}" "note:{config.vocab.model_name}" -is:new'
+        f'"deck:{config.vocab.deck_name}" "note:{config.vocab.model_name}"'
     )
     word_note_infos = anki_connect.notes_info(word_note_ids)
     kanji_to_words = _build_kanji_to_words_index(word_note_infos)
