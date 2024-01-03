@@ -34,7 +34,11 @@ def vocab() -> None:
             note_info, config.vocab.fields.pronunciation_text
         )
         pronunciation_text = any_to_text(pronunciation)
-        pronunciation_styled = text_to_styled(pronunciation_text)
+        if pronunciation_text:
+            pronunciation_styled = text_to_styled(pronunciation_text)
+        else:
+            pronunciation_text = pronunciation
+            pronunciation_styled = pronunciation
         word_furigana = Furigana(word)
         word_kanjis = []
         for character in word:

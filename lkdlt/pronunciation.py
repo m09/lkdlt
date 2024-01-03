@@ -2,6 +2,7 @@ from collections.abc import Iterable, Iterator
 from io import StringIO
 from itertools import zip_longest
 from re import finditer, sub
+from unicodedata import name as unicodedata_name
 
 
 def _normalize_text(pronunciation: str) -> str:
@@ -99,8 +100,19 @@ def _dispatch_to_converter(pronunciation: str) -> str:
         return _normalize_text(pronunciation)
 
 
-def any_to_text(pronunciation: str) -> str:
-    return _dispatch_to_converter(pronunciation)
+def _is_valid_text_pronunciation(pronunciation: str) -> bool:
+    return all(
+        c == "/"
+        or c == "\\"
+        or "HIRAGANA" in unicodedata_name(c)
+        or "KATAKANA" in unicodedata_name(c)
+        for c in pronunciation
+    )
+
+
+def any_to_text(pronunciation: str) -> str | None:
+    converted = _dispatch_to_converter(pronunciation)
+    return converted if _is_valid_text_pronunciation(converted) else None
 
 
 def text_to_styled(pronunciation: str) -> str:
