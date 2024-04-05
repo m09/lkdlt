@@ -8,7 +8,7 @@ def vocab() -> None:
     from ..anki_connect import AnkiConnect
     from ..config import config
     from ..furigana import Furigana, clean_empty_furigana, normalize_furigana
-    from ..jmdict import JMDict
+    from ..jmdict import load as jmdict_load
     from ..loading import load_kanji_infos
     from ..pronunciation import any_to_text, text_to_styled
     from ..utils import is_kanji
@@ -22,8 +22,7 @@ def vocab() -> None:
     )
     note_infos = anki_connect.notes_info(note_ids)
 
-    jmdict = JMDict()
-    jmdict.parse(config.paths.jmdict)
+    jmdict = jmdict_load()
 
     unknown_kanjis = set()
     edited = 0

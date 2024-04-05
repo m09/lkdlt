@@ -2,8 +2,12 @@ from collections import defaultdict
 from dataclasses import dataclass
 from gzip import open as gzip_open
 from pathlib import Path
+from pickle import dump as pickle_dump
+from pickle import load as pickle_load
 
 from lxml.etree import Element, iterparse
+
+from .config import config
 
 _xml = "{http://www.w3.org/XML/1998/namespace}"
 
@@ -240,3 +244,16 @@ class JMDict:
         if string in self._readings:
             return tuple(Definition.from_entry(e, lang) for e in self._readings[string])
         return ()
+
+
+def load() -> JMDict:
+    if not config.paths.jmdict_pickle.exists():
+        jmdict = JMDict()
+        jmdict.parse(config.paths.jmdict)
+        config.paths.jmdict_pickle.parent.mkdir(parents=True, exist_ok=True)
+        with config.paths.jmdict_pickle.open(mode="wb") as fh:
+            pickle_dump(jmdict, fh, protocol=5)
+    else:
+        with config.paths.jmdict_pickle.open(mode="rb") as fh:
+            jmdict = pickle_load(fh)
+    return jmdict

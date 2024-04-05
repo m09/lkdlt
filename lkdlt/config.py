@@ -52,6 +52,7 @@ class _Paths(BaseModel):
     stories: Path
     kanjidic: Path
     jmdict: Path
+    jmdict_pickle: Path
 
 
 class _Config(BaseModel):

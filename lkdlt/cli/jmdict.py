@@ -3,11 +3,9 @@ from . import app
 
 @app.command()
 def jmdict() -> None:
-    from ..config import config
-    from ..jmdict import JMDict
+    from ..jmdict import load as jmdict_load
 
-    jmdict = JMDict()
-    jmdict.parse(config.paths.jmdict)
+    jmdict = jmdict_load()
 
     print(jmdict.search("話す", "fre")[0].short)
     print("***")
