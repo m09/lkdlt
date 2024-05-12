@@ -48,8 +48,6 @@ class _Kanji(BaseModel):
 class _Paths(BaseModel):
     animcjk: Path
     kanji: Path
-    edits: Path
-    stories: Path
     kanjidic: Path
     jmdict: Path
     jmdict_pickle: Path
